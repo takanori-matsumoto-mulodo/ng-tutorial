@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
+import { Http, Response }          from '@angular/http';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'my-heroes',
@@ -15,10 +19,14 @@ export class HeroesComponent implements OnInit {
   constructor(
     private heroService: HeroService,
     private router: Router,
+    private http: Http,
   ) { }
 
+  private url = 'http://localhost:9000/app/list';
   getHeroes(): void {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+    this.http.get(this.url)
+    .map((res:Response) => res.json())
+    .subscribe(data => this.heroes = data);
   }
 
   ngOnInit(): void {
