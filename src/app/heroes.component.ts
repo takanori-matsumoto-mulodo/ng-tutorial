@@ -22,7 +22,8 @@ export class HeroesComponent implements OnInit {
     private http: Http,
   ) { }
 
-  private url = 'http://localhost:9000/app/list';
+  //private url = 'http://localhost:9000/app/list';
+  private url = 'https://3c2lxl49ia.execute-api.us-east-1.amazonaws.com/beta/app/list';
   getHeroes(): void {
     this.http.get(this.url)
     .map((res:Response) => res.json())
